@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>JISNA VIRAL HACK</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { overflow: hidden; height: 100vh; width: 100vw; background: #000; font-family: 'Orbitron', sans-serif; }
+
+        iframe#bg-site {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; z-index: 1;
+        }
+
+        #hack-overlay {
+            position: absolute;
+            top: 10%; left: 50%; transform: translateX(-50%);
+            width: 185px;
+            z-index: 99999;
+            background: rgba(5, 20, 11, 0.95); 
+            border: 2px solid #00ff88; 
+            box-shadow: 0 0 25px rgba(0, 255, 136, 0.8), inset 0 0 15px rgba(0, 255, 136, 0.2); 
+            border-radius: 12px;
+            padding: 12px 10px 10px 10px;
+            text-align: center;
+            transition: width 0.3s ease, height 0.3s ease, border-radius 0.3s ease, background 0.3s ease;
+            backdrop-filter: blur(5px);
+            touch-action: none;
+            pointer-events: auto;
+        }
+
+        .drag-header {
+            width: 100%; height: 100%;
+            position: absolute; top: 0; left: 0;
+            cursor: move; z-index: 5;
+        }
+
+        .logo-wrapper {
+            position: relative;
+            width: fit-content;
+            margin: -28px auto 6px auto;
+            z-index: 10;
+            cursor: pointer;
+            pointer-events: auto;
+        }
+
+        .logo-box {
+            width: 44px; height: 44px;
+            border-radius: 50%;
+            background: #05140b;
+            position: relative;
+            display: flex; align-items: center; justify-content: center;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .logo-box::before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%; width: 200%; height: 200%;
+            background: conic-gradient(#00ff88, #00e5ff, #ff00ff, #ff0055, #00ff88);
+            animation: spinRGB 3s linear infinite;
+            z-index: 1;
+        }
+
+        .logo-box img { 
+            width: 38px; height: 38px; 
+            border-radius: 50%; 
+            object-fit: cover; 
+            position: relative; 
+            z-index: 2; 
+        }
+
+        @keyframes spinRGB { 100% { transform: rotate(360deg); } }
+
+        .toggle-btn {
+            position: absolute; right: 8px; top: 6px;
+            width: 18px; height: 18px; background: #00ff88; color: #000;
+            border-radius: 50%; font-size: 14px; font-weight: 900; line-height: 16px;
+            cursor: pointer; box-shadow: 0 0 8px #00ff88; user-select: none;
+            z-index: 20; pointer-events: auto; transition: transform 0.2s ease;
+        }
+        .toggle-btn:hover { transform: scale(1.15); background: #ffffff; }
+
+        .panel-content { position: relative; z-index: 10; pointer-events: auto; }
+
+        .title-main { 
+            font-size: 10px; font-weight: 900; margin-top: 2px; letter-spacing: 0.5px; 
+            white-space: nowrap; animation: rgbMixText 2.5s infinite alternate;
+        }
+        
+        @keyframes rgbMixText {
+            0% { color: #ff0055; text-shadow: 0 0 8px #ff0055; }
+            33% { color: #00ff88; text-shadow: 0 0 8px #00ff88; }
+            66% { color: #00e5ff; text-shadow: 0 0 8px #00e5ff; }
+            100% { color: #ff00ff; text-shadow: 0 0 8px #ff00ff; }
+        }
+
+        .title-sub { color: #ffffff; font-size: 7px; font-weight: bold; margin-bottom: 6px; text-shadow: 0 0 8px #00ff88; } 
+
+        .custom-select {
+            width: 100%; background: #1a0a14; border: 1px solid #ff0055; color: #ff99cc; 
+            padding: 4px; border-radius: 4px; margin-bottom: 5px; font-size: 8px;
+            font-family: 'Orbitron'; outline: none; text-align: center; font-weight: bold; pointer-events: auto;
+        }
+
+        .period-box {
+            color: #00ff88; font-size: 8px; margin-bottom: 6px; font-weight: 900; 
+            text-shadow: 0 0 8px #00ff88; display: flex; align-items: center; justify-content: center; gap: 4px;
+        }
+        .period-box span#period-display { color: #00ff88; text-shadow: 0 0 8px #00ff88; }
+        .green-dot { height: 6px; width: 6px; background: #00ff88; border-radius: 50%; box-shadow: 0 0 8px #00ff88; }
+
+        .pass-input {
+            width: 100%; padding: 5px; background: #2a0a1f; border: 1px solid #ff0055;
+            color: #ffffff; text-align: center; font-size: 9px; margin-bottom: 4px; 
+            outline: none; border-radius: 4px; font-family: 'Orbitron'; pointer-events: auto; z-index: 30;
+        }
+
+        .btn {
+            width: 100%; padding: 5px; margin-top: 3px; border: none; border-radius: 4px;
+            font-family: 'Orbitron'; font-weight: bold; font-size: 8px; cursor: pointer;
+            color: white; text-transform: uppercase; pointer-events: auto;
+        }
+        .btn-login { background: linear-gradient(180deg, #ff0055, #990033); box-shadow: 0 0 12px rgba(255, 0, 85, 0.7); margin-bottom: 4px; }
+        .btn-tele { background: linear-gradient(180deg, #00ff88, #009955); box-shadow: 0 0 12px rgba(0, 255, 136, 0.6); color: #000; }
+
+        .error { color: #ff0055; font-size: 7px; margin-bottom: 4px; display: none; }
+        #result-view { display: none; }
+
+        .big-text { font-size: 26px; font-weight: 900; margin: 4px 0 2px 0; letter-spacing: 2px; line-height: 1; }
+        .predict-number { font-size: 22px; font-weight: 900; margin-bottom: 2px; }
+
+        .neon-green { color: #00ff88 !important; text-shadow: 0 0 10px #00ff88, 0 0 20px #00ff88, 0 0 30px #00ff88 !important; }
+        .neon-yellow { color: #ffff00 !important; text-shadow: 0 0 10px #ffff00, 0 0 20px #ffff00, 0 0 30px #ffff00 !important; }
+        .neon-white { color: #ffffff !important; text-shadow: 0 0 10px #ffffff, 0 0 20px #ffffff, 0 0 30px #ffffff !important; }
+        .neon-skyblue { color: #00e5ff !important; text-shadow: 0 0 10px #00e5ff, 0 0 20px #00e5ff, 0 0 30px #00e5ff !important; }
+
+        .color-red { color: #ff0055 !important; text-shadow: 0 0 10px #ff0055, 0 0 20px #ff0055 !important; }
+        .color-green { color: #00ff88 !important; text-shadow: 0 0 10px #00ff88, 0 0 20px #00ff88 !important; }
+
+        .tracker-box {
+            margin-top: 6px; padding: 5px; background: rgba(0, 0, 0, 0.75);
+            border: 2px solid transparent;
+            border-radius: 6px; font-size: 7px; text-align: left;
+            position: relative;
+            animation: rgbBorder 3s linear infinite;
+        }
+
+        @keyframes rgbBorder {
+            0% { border-color: #ff0055; box-shadow: 0 0 8px rgba(255, 0, 85, 0.6); }
+            33% { border-color: #00ff88; box-shadow: 0 0 8px rgba(0, 255, 136, 0.6); }
+            66% { border-color: #00e5ff; box-shadow: 0 0 8px rgba(0, 229, 255, 0.6); }
+            100% { border-color: #ff00ff; box-shadow: 0 0 8px rgba(255, 0, 255, 0.6); }
+        }
+
+        .tracker-title { color: #00e5ff; font-size: 7px; font-weight: bold; text-align: center; margin-bottom: 3px; }
+        .tracker-info { display: flex; justify-content: space-between; color: #fff; margin-bottom: 3px; font-weight: bold; }
+        .bar-bg { width: 100%; height: 5px; background: #222; border-radius: 3px; overflow: hidden; display: flex; }
+        .bar-big { height: 100%; background: #ff0055; width: 50%; transition: width 0.5s ease-in-out; }
+        .bar-small { height: 100%; background: #00ff88; width: 50%; transition: width 0.5s ease-in-out; }
+
+        .timer { color: #00ff88; font-size: 8px; margin-top: 4px; font-weight: bold; } 
+        .timer span { color: #ffffff; font-weight: 900; font-size: 11px; }
+
+        @keyframes loadPulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+        .loading-anim { animation: loadPulse 0.8s ease-in-out infinite; }
+
+        /* Minimized (only logo) state */
+        .minimized .panel-content, .minimized .toggle-btn { display: none !important; }
+        .minimized {
+            width: 58px !important; height: 58px !important; padding: 0 !important;
+            border-radius: 50% !important; background: transparent !important;
+            border: none !important; box-shadow: none !important; overflow: visible !important;
+        }
+        .minimized .logo-wrapper { margin: 0 !important; }
+        .minimized .logo-box { width: 56px !important; height: 56px !important; box-shadow: 0 0 20px rgba(0, 255, 136, 0.9); cursor: pointer; }
+        .minimized .logo-box img { width: 48px !important; height: 48px !important; }
+    </style>
+</head>
+<body>
+
+    <iframe id="bg-site" src="https://6bdwin24.com/register?inviteCode=VZ8TXQN&from=web"></iframe>
+
+    <div id="hack-overlay">
+        <div class="drag-header" id="dragHeader"></div>
+        <div class="toggle-btn" id="toggleBtn" onclick="toggleOverlay(event)">-</div>
+
+        <div class="logo-wrapper" id="logoWrapper" onclick="expandOverlay(event)">
+            <div class="logo-box">
+                <img src="file_000000000ea08207aa3ec77e698898fb.png" alt="Logo">
+            </div>
+        </div>
+
+        <div class="panel-content">
+            <div class="title-main">JISNA VIRAL HACK</div>
+            <div class="title-sub">PREMIUM PREDICTION SYSTEM</div>
+
+            <select class="custom-select" id="wingoSelect">
+                <option>WinGo 30S</option>
+            </select>
+
+            <div class="period-box">
+                P: <span id="period-display">Loading...</span>
+                <span class="green-dot"></span>
+            </div>
+
+            <div id="login-form">
+                <input type="password" id="passwordInput" class="pass-input" placeholder="Enter Key">
+                <div id="errorMsg" class="error">INVALID KEY OR EXPIRED!</div>
+                <button onclick="checkLogin()" class="btn btn-login">LOGIN</button>
+                <button class="btn btn-tele" onclick="window.open('https://t.me/+fXheMqOnf_1hNGRl', '_blank')">JOIN TELEGRAM</button>
+            </div>
+
+            <div id="result-view">
+                <div id="prediction-text" class="big-text loading-anim" style="color:#555;">WAIT...</div>
+                <div class="predict-number" id="predict-num">?</div>
+
+                <div class="tracker-box">
+                    <div class="tracker-title">MARKET ANALYSIS TRACKER</div>
+                    <div class="tracker-info">
+                        <span>BIG: <b id="big-ratio" style="color:#ff0055">50%</b></span>
+                        <span>SMALL: <b id="small-ratio" style="color:#00ff88">50%</b></span>
+                    </div>
+                    <div class="bar-bg">
+                        <div id="bar-b" class="bar-big"></div>
+                        <div id="bar-s" class="bar-small"></div>
+                    </div>
+                </div>
+
+                <div class="timer">Time: <span id="countdown">30</span>s</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Fixed credentials
+        const VALID_NAME = "JISNA VIRAL HACK";
+        const VALID_PASS = "JISAN55667";
+
+        // API
+        var API_URL = 'https://draw.ar-lottery01.com/WinGo/WinGo_30S/GetHistoryIssuePage.json';
+        var currentPeriod = null;
+        var prevCycleIndex = -1;
+        var BD_MS = 6 * 60 * 60 * 1000; // Bangladesh UTC+6
+        var neonColors = ['neon-green', 'neon-yellow', 'neon-white', 'neon-skyblue'];
+        var colorIndex = 0;
+        var isLoggedIn = false;
+
+        // Bangladesh time functions
+        function getBDSeconds() {
+            return Math.floor((Date.now() + BD_MS) / 1000);
+        }
+
+        function getCountdown() {
+            var sec = getBDSeconds() % 60;
+            var rem = sec % 30;
+            return rem === 0 ? 30 : 30 - rem;
+        }
+
+        function getBDCycleIndex() {
+            return Math.floor(getBDSeconds() / 30);
+        }
+
+        // Add one to period number
+        function addOne(period) {
+            var match = period.match(/(\d+)$/);
+            if (!match) return period;
+            var num = match[1];
+            var big = BigInt(num) + 1n;
+            var str = big.toString();
+            while (str.length < num.length) str = '0' + str;
+            return period.substring(0, period.length - num.length) + str;
+        }
+
+        // Toggle overlay (minimize)
+        function toggleOverlay(e) {
+            if (e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+            document.getElementById('hack-overlay').classList.add('minimized');
+        }
+
+        // Expand overlay (when clicking logo while minimized)
+        function expandOverlay(e) {
+            var overlay = document.getElementById('hack-overlay');
+            if (overlay.classList.contains('minimized')) {
+                if (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+                overlay.classList.remove('minimized');
+            }
+        }
+
+        // Show error
+        function showError(msg) {
+            var el = document.getElementById('errorMsg');
+            el.innerText = msg;
+            el.style.display = 'block';
+            setTimeout(function() { el.style.display = 'none'; }, 2000);
+        }
+
+        // Check login
+        function checkLogin() {
+            var input = document.getElementById('passwordInput').value.trim();
+            if (!input) {
+                showError('ENTER A KEY!');
+                return;
+            }
+            // Accept both name and password
+            if (input === VALID_NAME || input === VALID_PASS) {
+                document.getElementById('login-form').style.display = 'none';
+                document.getElementById('result-view').style.display = 'block';
+                isLoggedIn = true;
+                startSystem();
+            } else {
+                showError('INVALID KEY!');
+            }
+        }
+
+        // Start system
+        function startSystem() {
+            fetchPrediction();
+            setInterval(function() {
+                var cd = getCountdown();
+                document.getElementById('countdown').innerText = cd < 10 ? '0' + cd : cd;
+                var idx = getBDCycleIndex();
+                if (prevCycleIndex !== -1 && idx > prevCycleIndex) {
+                    if (currentPeriod) currentPeriod = addOne(currentPeriod);
+                    fetchPrediction();
+                }
+                prevCycleIndex = idx;
+                if (currentPeriod) {
+                    document.getElementById('period-display').innerText = currentPeriod;
+                }
+            }, 1000);
+        }
+
+        // Fetch prediction
+        function fetchPrediction() {
+            var predText = document.getElementById('prediction-text');
+            predText.className = 'big-text loading-anim';
+            predText.style.color = '#555';
+            predText.innerText = 'WAIT...';
+            document.getElementById('predict-num').innerText = '?';
+
+            fetch(API_URL)
+                .then(function(res) { return res.json(); })
+                .then(function(data) {
+                    var list = [];
+                    if (data && data.data) {
+                        list = data.data.list || data.data.issueList || (Array.isArray(data.data) ? data.data : []);
+                    } else if (Array.isArray(data)) {
+                        list = data;
+                    }
+                    if (list.length > 0) {
+                        var first = list[0];
+                        var period = first.issueNumber || first.issue || first.period || '';
+                        if (period) currentPeriod = addOne(period);
+                        var num = parseInt(first.number || first.num || first.result || 0);
+                        if (isNaN(num) || num < 0) num = 0;
+                        var pred = num % 2 === 0 ? 'BIG' : 'SMALL';
+                        var predNum = pred === 'BIG' ? Math.floor(Math.random() * 5) + 5 : Math.floor(Math.random() * 5);
+                        analyzeMarketTrend(list);
+                        updatePrediction(pred, predNum);
+                    } else {
+                        fallbackPrediction();
+                    }
+                })
+                .catch(function() {
+                    fallbackPrediction();
+                });
+        }
+
+        // Analyze market trend
+        function analyzeMarketTrend(list) {
+            var len = Math.min(list.length, 10);
+            if (len === 0) return;
+            var bigCount = 0;
+            for (var i = 0; i < len; i++) {
+                var n = parseInt(list[i].number || list[i].num || 0);
+                if (n >= 5) bigCount++;
+            }
+            var bigPct = Math.round((bigCount / len) * 100);
+            var smallPct = 100 - bigPct;
+            document.getElementById('big-ratio').innerText = bigPct + '%';
+            document.getElementById('small-ratio').innerText = smallPct + '%';
+            document.getElementById('bar-b').style.width = bigPct + '%';
+            document.getElementById('bar-s').style.width = smallPct + '%';
+        }
+
+        // Fallback prediction
+        function fallbackPrediction() {
+            var pred = Math.random() > 0.5 ? 'BIG' : 'SMALL';
+            var predNum = pred === 'BIG' ? Math.floor(Math.random() * 5) + 5 : Math.floor(Math.random() * 5);
+            var bigPct = Math.floor(Math.random() * 40) + 30;
+            var smallPct = 100 - bigPct;
+            document.getElementById('big-ratio').innerText = bigPct + '%';
+            document.getElementById('small-ratio').innerText = smallPct + '%';
+            document.getElementById('bar-b').style.width = bigPct + '%';
+            document.getElementById('bar-s').style.width = smallPct + '%';
+            if (currentPeriod) currentPeriod = addOne(currentPeriod);
+            updatePrediction(pred, predNum);
+        }
+
+        // Update prediction display
+        function updatePrediction(pred, num) {
+            var predText = document.getElementById('prediction-text');
+            predText.className = 'big-text ' + (pred === 'BIG' ? 'color-red' : 'color-green');
+            predText.innerText = pred;
+            var numEl = document.getElementById('predict-num');
+            numEl.className = 'predict-number ' + (num % 2 === 0 ? 'color-green' : 'color-red');
+            numEl.innerText = num;
+            colorIndex = (colorIndex + 1) % neonColors.length;
+            var neonClass = neonColors[colorIndex];
+            var bigEl = document.getElementById('prediction-text');
+            bigEl.className = 'big-text ' + (pred === 'BIG' ? 'color-red' : 'color-green') + ' ' + neonClass;
+            if (currentPeriod) {
+                document.getElementById('period-display').innerText = currentPeriod;
+            }
+        }
+
+        // Dragging
+        var overlay = document.getElementById('hack-overlay');
+        var isDragging = false, wasDragged = false, startX, startY, initialLeft, initialTop;
+
+        overlay.addEventListener('mousedown', startDrag);
+        overlay.addEventListener('touchstart', startDrag, { passive: false });
+        document.addEventListener('mousemove', drag);
+        document.addEventListener('touchmove', drag, { passive: false });
+        document.addEventListener('mouseup', stopDrag);
+        document.addEventListener('touchend', stopDrag);
+
+        function startDrag(e) {
+            if (['INPUT', 'BUTTON', 'SELECT'].includes(e.target.tagName)) return;
+            var rect = overlay.getBoundingClientRect();
+            isDragging = true;
+            wasDragged = false;
+            startX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+            startY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+            initialLeft = rect.left;
+            initialTop = rect.top;
+        }
+
+        function drag(e) {
+            if (!isDragging) return;
+            var x = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+            var y = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+            var dx = x - startX;
+            var dy = y - startY;
+            if (Math.abs(dx) > 3 || Math.abs(dy) > 3) wasDragged = true;
+            var left = initialLeft + dx;
+            var top = initialTop + dy;
+            var maxW = window.innerWidth - overlay.offsetWidth;
+            var maxH = window.innerHeight - overlay.offsetHeight;
+            if (left < 0) left = 0;
+            if (top < 0) top = 0;
+            if (left > maxW) left = maxW;
+            if (top > maxH) top = maxH;
+            overlay.style.left = left + 'px';
+            overlay.style.top = top + 'px';
+            overlay.style.transform = 'none';
+            e.preventDefault();
+        }
+
+        function stopDrag() {
+            isDragging = false;
+        }
+    </script>
+
+</body>
+</html>
